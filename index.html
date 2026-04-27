@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+  font-family: sans-serif;
+  margin: 0;
+  background: #fff;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+}
+
+.cta {
+  background: #25D366;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+}
+
+.hero {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+button {
+  cursor: pointer;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 10px;
+}
+
+.cart-floating {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: black;
+  color: white;
+  padding: 10px;
+  border-radius: 50px;
+}
+
+.checkout {
+  position: sticky;
+  bottom: 0;
+  background: white;
+  padding: 10px;
+}
+</style>
+<body>
+
+<header>
+  <nav>
+    <div class="logo">Urchoice</div>
+    <button class="cta">Order Now</button>
+  </nav>
+
+  <section class="hero">
+    <h1>Freshly Baked Treats Delivered to Your Door</h1>
+    <p>Delicious homemade snacks for your cravings and events</p>
+    <button id="viewMenuBtn">View Menu</button>
+  </section>
+</header>
+
+<section class="best-sellers">
+  <!-- product cards -->
+</section>
+
+<section class="menu">
+  <div class="categories">
+    <button>Pastries</button>
+    <button>Cakes</button>
+    <button>Small Chops</button>
+  </div>
+
+  <div class="products-grid">
+    <!-- JS inject products here -->
+  </div>
+</section>
+
+<div class="cart-floating">
+  🛒 <span id="cartCount">0</span>
+</div>
+
+<section class="checkout">
+  <div id="orderSummary"></div>
+  <button id="whatsappBtn">Send to WhatsApp</button>
+</section>
+
+<footer>
+  Lagos, Nigeria | Powered by Ifeoluwa Digital
+</footer>
+<script>let cart = [];
+
+function addToCart(name, price) {
+  cart.push({ name, price });
+  updateCartCount();
+}
+
+function updateCartCount() {
+  document.getElementById("cartCount").innerText = cart.length;
+}
+
+function generateWhatsAppMessage() {
+  let message = "Hello Urchoice Store, I want to order:\n\n";
+  let total = 0;
+
+  cart.forEach(item => {
+    message += `- ${item.name} (₦${item.price})\n`;
+    total += item.price;
+  });
+
+  message += `\nTotal: ₦${total}`;
+
+  let encoded = encodeURIComponent(message);
+  let url = `https://wa.me/234706440xxxx?text=${encoded}`;
+
+  window.open(url, "_blank");
+}
+
+document.getElementById("whatsappBtn").onclick = generateWhatsAppMessage;</script>
+</body>
+</html>
