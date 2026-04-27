@@ -1,0 +1,466 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urchoice Store - Everything You Need, Delivered Fast in Lagos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#fef7ee',
+                            500: '#f97316',
+                            600: '#ea580c',
+                            700: '#c2410c'
+                        },
+                        secondary: {
+                            500: '#10b981',
+                            600: '#059669'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { scroll-behavior: smooth; }
+        .gradient-bg { background: linear-gradient(135deg, #fef7ee 0%, #fde8d3 100%); }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .whatsapp-float { animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans antialiased">
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/2349041999098?text=Hi%20Urchoice%20Store!%20I'm%20ready%20to%20order." 
+       class="fixed bottom-6 right-6 z-50 w-16 h-16 bg-green-500 hover:bg-green-600 rounded-full shadow-2xl flex items-center justify-center text-white text-2xl whatsapp-float md:bottom-8 md:right-8" 
+       target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Cart Drawer -->
+    <div id="cartDrawer" class="fixed inset-0 z-40 hidden bg-black bg-opacity-50">
+        <div class="bg-white w-full h-full md:w-96 md:right-0 transform translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out">
+            <div class="p-6 border-b">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-2xl font-bold text-gray-800">Your Cart</h2>
+                    <button onclick="closeCart()" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="cartItems" class="p-6 overflow-y-auto flex-1"></div>
+            <div class="p-6 border-t space-y-4">
+                <div class="flex justify-between text-xl font-bold">
+                    <span>Total:</span>
+                    <span id="cartTotal" class="text-primary-600">₦0</span>
+                </div>
+                <div>
+                    <input id="deliveryLocation" type="text" placeholder="Enter your delivery location in Lagos" 
+                           class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                </div>
+                <button onclick="completeOrder()" 
+                        class="w-full bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-bold py-4 px-6 rounded-xl text-lg transition-all duration-300 transform hover:scale-105 shadow-xl">
+                    Complete Order on WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-2xl flex items-center justify-center">
+                        <i class="fas fa-store text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-2xl text-gray-800">Urchoice Store</h1>
+                        <p class="text-sm text-gray-500">Fast Lagos Delivery</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button onclick="openCart()" class="relative p-2 text-gray-600 hover:text-primary-600">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span id="cartCount" class="absolute -top-2 -right-2 bg-primary-600 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center text-sm">0</span>
+                    </button>
+                    <a href="https://wa.me/2349041999098" class="bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white px-6 py-2 rounded-xl font-semibold transition-all duration-300" target="_blank">
+                        Order Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg py-24 md:py-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold bg-gradient-to-r from-gray-800 via-gray-700 to-primary-700 bg-clip-text text-transparent mb-6 leading-tight">
+                Everything You Need,<br>Delivered Fast in Lagos
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-700 mb-10 max-w-3xl mx-auto leading-relaxed">
+                Snacks, essentials, and lifestyle items — all in one place. 
+                Order via WhatsApp for lightning-fast delivery across Lagos.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-2xl mx-auto">
+                <a href="https://wa.me/2349041999098" 
+                   class="w-full sm:w-auto bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-bold py-5 px-8 rounded-2xl text-lg shadow-2xl hover:shadow-3xl transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center space-x-3" 
+                   target="_blank">
+                    <i class="fab fa-whatsapp text-xl"></i>
+                    <span>Order on WhatsApp</span>
+                </a>
+                <a href="#categories" class="w-full sm:w-auto border-2 border-primary-500 text-primary-600 font-bold py-5 px-8 rounded-2xl hover:bg-primary-50 transition-all duration-300">
+                    View Products
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section id="categories" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">Shop by Category</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">Everything organized for your convenience</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <a href="#products" data-category="snacks" class="group card-hover">
+                    <div class="bg-gradient-to-br from-orange-400 to-orange-500 p-8 rounded-3xl text-white text-center shadow-xl">
+                        <div class="w-20 h-20 bg-white bg-opacity-20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-cookie-bite text-3xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Snacks & Treats</h3>
+                        <p class="opacity-90">Meatpie, Puff Puff, Chin Chin</p>
+                    </div>
+                </a>
+                <a href="#products" data-category="pantry" class="group card-hover">
+                    <div class="bg-gradient-to-br from-green-400 to-green-500 p-8 rounded-3xl text-white text-center shadow-xl">
+                        <div class="w-20 h-20 bg-white bg-opacity-20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-box-open text-3xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Pantry Essentials</h3>
+                        <p class="opacity-90">Garri, Honey & More</p>
+                    </div>
+                </a>
+                <a href="#products" data-category="fragrance" class="group card-hover">
+                    <div class="bg-gradient-to-br from-purple-400 to-purple-500 p-8 rounded-3xl text-white text-center shadow-xl">
+                        <div class="w-20 h-20 bg-white bg-opacity-20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-spray-can text-3xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Fragrance</h3>
+                        <p class="opacity-90">Premium Perfumes</p>
+                    </div>
+                </a>
+                <a href="#products" data-category="accessories" class="group card-hover">
+                    <div class="bg-gradient-to-br from-blue-400 to-blue-500 p-8 rounded-3xl text-white text-center shadow-xl">
+                        <div class="w-20 h-20 bg-white bg-opacity-20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-gem text-3xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Accessories</h3>
+                        <p class="opacity-90">Fashion & Lifestyle</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Sellers -->
+    <section class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">Best Sellers</h2>
+                <p class="text-xl text-gray-600">Lagos' favorite picks</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="bestSellers">
+                <!-- Best sellers populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- All Products -->
+    <section id="products" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-wrap gap-2 mb-8 justify-center">
+                <button class="category-filter px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-300 bg-primary-100 text-primary-700 hover:bg-primary-200 active" data-category="all">
+                    All Products
+                </button>
+                <button class="category-filter px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-300 bg-gray-100 text-gray-700 hover:bg-gray-200" data-category="snacks">Snacks</button>
+                <button class="category-filter px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-300 bg-gray-100 text-gray-700 hover:bg-gray-200" data-category="pantry">Pantry</button>
+                <button class="category-filter px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-300 bg-gray-100 text-gray-700 hover:bg-gray-200" data-category="fragrance">Fragrance</button>
+                <button class="category-filter px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-300 bg-gray-100 text-gray-700 hover:bg-gray-200" data-category="accessories">Accessories</button>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" id="productGrid">
+                <!-- Products populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust & Footer -->
+    <footer class="bg-gradient-to-r from-gray-900 to-gray-800 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
+                <div>
+                    <h3 class="text-3xl font-bold mb-6 flex items-center justify-center md:justify-start space-x-3">
+                        <i class="fas fa-map-marker-alt text-primary-400"></i>
+                        <span>📍 Lagos, Nigeria</span>
+                    </h3>
+                    <p class="text-xl opacity-90 mb-8">Fast delivery across Lagos Island, Mainland & everywhere in between</p>
+                </div>
+                <div>
+                    <h4 class="text-2xl font-bold mb-6">Quick Links</h4>
+                    <div class="space-y-3">
+                        <a href="#categories" class="hover:text-primary-400 transition-colors">Shop Categories</a>
+                        <a href="#products" class="hover:text-primary-400 transition-colors">All Products</a>
+                        <a href="https://wa.me/2349041999098" class="hover:text-primary-400 transition-colors" target="_blank">Order Now</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-2xl font-bold mb-6">Connect With Us</h4>
+                    <div class="flex justify-center md:justify-start space-x-6">
+                        <a href="https://wa.me/2349041999098" class="w-12 h-12 bg-green-500 hover:bg-green-600 rounded-xl flex items-center justify-center text-xl transition-all duration-300 hover:scale-110" target="_blank">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 rounded-xl flex items-center justify-center text-xl transition-all duration-300 hover:scale-110">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-16 pt-12 text-center">
+                <p class="text-xl opacity-75">Powered by <span class="font-bold text-primary-400">Urchoice Store</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Products Data
+        const products = [
+            // Snacks & Treats
+            { id: 1, name: 'Meatpie (Fresh)', price: 350, category: 'snacks', image: 'https://images.unsplash.com/photo-1577612486787-7f7e74c3ee4e?w=400&h=400&fit=crop', desc: 'Freshly baked meatpie' },
+            { id: 2, name: 'Puff Puff (6pcs)', price: 500, category: 'snacks', image: 'https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?w=400&h=400&fit=crop', desc: 'Crispy golden puff puff' },
+            { id: 3, name: 'Chin Chin (100g)', price: 250, category: 'snacks', image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=400&fit=crop', desc: 'Crunchy chin chin bites' },
+            { id: 4, name: 'Small Chops Pack', price: 800, category: 'snacks', image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=400&h=400&fit=crop', desc: 'Assorted small chops' },
+
+            // Pantry Essentials
+            { id: 5, name: 'Garri (Ijebu) 1kg', price: 1200, category: 'pantry', image: 'https://images.unsplash.com/photo-1626433907204-626e6522bd74?w=400&h=400&fit=crop', desc: 'Premium Ijebu garri' },
+            { id: 6, name: 'Pure Honey 500ml', price: 3500, category: 'pantry', image: 'https://images.unsplash.com/photo-1585399822294-6c2bd3f3e684?w=400&h=400&fit=crop', desc: '100% natural honey' },
+            { id: 7, name: 'Palm Oil 1L', price: 2800, category: 'pantry', image: 'https://images.unsplash.com/photo-1606853734498-eb4e602086f4?w=400&h=400&fit=crop', desc: 'Fresh red palm oil' },
+
+            // Fragrance
+            { id: 8, name: 'Swiss Lace Perfume', price: 4500, category: 'fragrance', image: 'https://images.unsplash.com/photo-1587014611670-fc1a93616e2f?w=400&h=400&fit=crop', desc: 'Long-lasting fragrance' },
+            { id: 9, name: 'Oceanus Blue Spray', price: 3800, category: 'fragrance', image: 'https://images.unsplash.com/photo-1590369160674-8c1ff9605f53?w=400&h=400&fit=crop', desc: 'Fresh aquatic scent' },
+            { id: 10, name: 'Royal Club Perfume', price: 5200, category: 'fragrance', image: 'https://images.unsplash.com/photo-1615204183469-7ae16a0a1b5c?w=400&h=400&fit=crop', desc: 'Premium woody notes' },
+
+            // Accessories
+            { id: 11, name: 'Leather Wristband', price: 2500, category: 'accessories', image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop', desc: 'Genuine leather band' },
+            { id: 12, name: 'Gold Chain Necklace', price: 8500, category: 'accessories', image: 'https://images.unsplash.com/photo-1593482584711-6d2a5a2dc8ee?w=400&h=400&fit=crop', desc: '18K gold plated chain' },
+            { id: 13, name: 'Sunglasses Classic', price: 12000, category: 'accessories', image: 'https://images.unsplash.com/photo-1574267432551-8d6f6f6cc407?w=400&h=400&fit=crop', desc: 'UV400 protection' }
+        ];
+
+        let cart = JSON.parse(localStorage.getItem('urchoice_cart')) || [];
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            renderProducts();
+            renderBestSellers();
+            renderCart();
+            setupCategoryFilters();
+        });
+
+        // Cart Functions
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            
+            localStorage.setItem('urchoice_cart', JSON.stringify(cart));
+            renderCart();
+            showToast('Added to cart!');
+        }
+
+        function updateCartQuantity(productId, quantity) {
+            const itemIndex = cart.findIndex(item => item.id === productId);
+            if (itemIndex > -1) {
+                if (quantity <= 0) {
+                    cart.splice(itemIndex, 1);
+                } else {
+                    cart[itemIndex].quantity = quantity;
+                }
+                localStorage.setItem('urchoice_cart', JSON.stringify(cart));
+                renderCart();
+            }
+        }
+
+        function renderCart() {
+            const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = cartCount;
+            document.getElementById('cartTotal').textContent = `₦${calculateTotal().toLocaleString()}`;
+            
+            const cartItemsEl = document.getElementById('cartItems');
+            if (cart.length === 0) {
+                cartItemsEl.innerHTML = '<div class="text-center py-12"><i class="fas fa-shopping-cart text-6xl text-gray-300 mb-4"></i><p class="text-xl text-gray-500">Your cart is empty</p></div>';
+            } else {
+                cartItemsEl.innerHTML = cart.map(item => `
+                    <div class="flex items-center space-x-4 p-4 border-b last:border-b-0">
+                        <img src="${item.image}" alt="${item.name}" class="w-20 h-20 object-cover rounded-xl">
+                        <div class="flex-1 min-w-0">
+                            <h4 class="font-bold text-lg">${item.name}</h4>
+                            <p class="text-primary-600 font-bold">₦${item.price.toLocaleString()}</p>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <button onclick="updateCartQuantity(${item.id}, ${item.quantity - 1})" class="w-10 h-10 rounded-lg bg-gray-100 hover:bg-gray-200 flex items-center justify-center">-</button>
+                            <span class="font-bold w-8 text-center">${item.quantity}</span>
+                            <button onclick="updateCartQuantity(${item.id}, ${item.quantity + 1})" class="w-10 h-10 rounded-lg bg-primary-100 hover:bg-primary-200 flex items-center justify-center text-primary-600">+</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function calculateTotal() {
+            return cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        }
+
+        function openCart() {
+            document.getElementById('cartDrawer').classList.remove('hidden');
+            setTimeout(() => document.getElementById('cartDrawer').classList.remove('translate-x-full'), 10);
+        }
+
+        function closeCart() {
+            document.getElementById('cartDrawer').classList.add('translate-x-full');
+            setTimeout(() => document.getElementById('cartDrawer').classList.add('hidden'), 300);
+        }
+
+        function completeOrder() {
+            const location = document.getElementById('deliveryLocation').value.trim();
+            if (cart.length === 0) {
+                showToast('Cart is empty!');
+                return;
+            }
+            if (!location) {
+                showToast('Please enter your delivery location');
+                return;
+            }
+
+            const orderItems = cart.map(item => `${item.name} (x${item.quantity}) - ₦${(item.price * item.quantity).toLocaleString()}`).join('\n');
+            const total = calculateTotal();
+            
+            const message = `Hi Urchoice Store! 🛒
+
+📋 MY ORDER:
+${orderItems}
+
+💰 Total: ₦${total.toLocaleString()}
+
+📍 Delivery Location: ${location}
+
+Please confirm my order! 🙏`;
+
+            const whatsappUrl = `https://wa.me/2349041999098?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+            
+            // Clear cart after order
+            cart = [];
+            localStorage.removeItem('urchoice_cart');
+            renderCart();
+            closeCart();
+            showToast('Order sent to WhatsApp! 🚀');
+        }
+
+        // Products Rendering
+        function renderProducts(category = 'all') {
+            const filteredProducts = category === 'all' ? products : products.filter(p => p.category === category);
+            document.getElementById('productGrid').innerHTML = filteredProducts.map(product => `
+                <div class="bg-white rounded-3xl shadow-lg overflow-hidden card-hover group">
+                    <div class="h-64 bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2 text-gray-800 leading-tight">${product.name}</h3>
+                        ${product.desc ? `<p class="text-gray-600 text-sm mb-4">${product.desc}</p>` : ''}
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl font-bold text-primary-600">₦${product.price.toLocaleString()}</span>
+                            <button onclick="addToCart(${product.id})" 
+                                    class="bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white px-6 py-3 rounded-xl font-semibold shadow-lg transform hover:scale-105 transition-all duration-300">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderBestSellers() {
+            const bestSellers = products.slice(0, 6); // Top 6
+            document.getElementById('bestSellers').innerHTML = bestSellers.map(product => `
+                <div class="bg-white rounded-3xl shadow-xl overflow-hidden card-hover group">
+                    <div class="h-64 bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-3 text-gray-800">${product.name}</h3>
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl font-bold text-primary-600">₦${product.price.toLocaleString()}</span>
+                            <button onclick="addToCart(${product.id})" 
+                                    class="bg-gradient-to-r from-secondary-500 to-secondary-600 hover:from-secondary-600 hover:to-secondary-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg transform hover:scale-105 transition-all duration-300">
+                                Order Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Category Filters
+        function setupCategoryFilters() {
+            document.querySelectorAll('.category-filter').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.category-filter').forEach(b => {
+                        b.classList.remove('active', 'bg-primary-100', 'text-primary-700');
+                        b.classList.add('bg-gray-100', 'text-gray-700');
+                    });
+                    this.classList.add('active', 'bg-primary-100', 'text-primary-700');
+                    this.classList.remove('bg-gray-100', 'text-gray-700');
+                    renderProducts(this.dataset.category);
+                });
+            });
+        }
+
+        // Utility Functions
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'fixed top-6 right-6 z-50 bg-green-500 text-white px-8 py-4 rounded-2xl shadow-2xl transform translate-x-full transition-all duration-300';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => toast.classList.remove('translate-x-full'), 100);
+            setTimeout(() => {
+                toast.classList.add('translate-x-full');
+                setTimeout(() => document.body.removeChild(toast), 300);
+            }, 3000);
+        }
+
+        // Close cart on overlay click
+        document.getElementById('cartDrawer').addEventListener('click', function(e) {
+            if (e.target === this) closeCart();
+        });
+
+        // Close cart on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeCart();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urchoice Store - Fresh Snacks Delivered</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body class="bg-white font-inter">
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-md border-b border-gray-100 z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="text-2xl font-serif font-bold text-gray-900">🍪 Urchoice</div>
+            <button id="orderNowBtn" class="bg-gradient-to-r from-emerald-500 to-green-600 text-white px-8 py-3 rounded-full font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-300">
+                Order Now
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="pt-24 pb-24">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <h1 class="font-serif text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-6 leading-tight">
+                Freshly Baked Treats<br>Delivered to Your Door
+            </h1>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto mb-10 font-medium">Delicious homemade snacks for your events and daily cravings</p>
+            <button onclick="scrollToMenu()" class="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-12 py-6 rounded-full font-semibold text-lg shadow-2xl hover:shadow-3xl transform hover:-translate-y-1 transition-all duration-300">
+                View Menu →
+            </button>
+        </div>
+    </section>
+
+    <!-- Best Sellers -->
+    <section class="py-24 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="font-serif text-4xl font-bold text-center text-gray-900 mb-20">🥐 Best Sellers</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <div class="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-4">
+                    <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500&fit=crop" alt="Meatpie" class="w-full h-64 object-cover rounded-2xl mb-6 group-hover:scale-105 transition-transform duration-500">
+                    <h3 class="font-semibold text-xl text-gray-900 mb-3">Meatpie</h3>
+                    <div class="text-2xl font-bold text-orange-500 mb-6">₦500</div>
+                    <button onclick="addToCart('Meatpie', 500)" class="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-4 rounded-2xl font-semibold hover:shadow-lg transition-all duration-300">
+                        Add to Bag
+                    </button>
+                </div>
+                <div class="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-4">
+                    <img src="https://images.unsplash.com/photo-1562440499-64e1949ab7ba?w=500&fit=crop" alt="Chocolate Cake" class="w-full h-64 object-cover rounded-2xl mb-6 group-hover:scale-105 transition-transform duration-500">
+                    <h3 class="font-semibold text-xl text-gray-900 mb-3">Chocolate Cake</h3>
+                    <div class="text-2xl font-bold text-orange-500 mb-6">₦8,000</div>
+                    <button onclick="addToCart('Chocolate Cake', 8000)" class="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-4 rounded-2xl font-semibold hover:shadow-lg transition-all duration-300">
+                        Add to Bag
+                    </button>
+                </div>
+                <div class="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-4">
+                    <img src="https://images.unsplash.com/photo-1615484473779-05eaebc9210d?w=500&fit=crop" alt="Chin-chin" class="w-full h-64 object-cover rounded-2xl mb-6 group-hover:scale-105 transition-transform duration-500">
+                    <h3 class="font-semibold text-xl text-gray-900 mb-3">Chin-chin (1L)</h3>
+                    <div class="text-2xl font-bold text-orange-500 mb-6">₦2,500</div>
+                    <button onclick="addToCart('Chin-chin (1L)', 2500)" class="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-4 rounded-2xl font-semibold hover:shadow-lg transition-all duration-300">
+                        Add to Bag
+                    </button>
+                </div>
+                <div class="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-4">
+                    <img src="https://images.unsplash.com/photo-1585474981207-737c7ab7b190?w=500&fit=crop" alt="Puff Puff" class="w-full h-64 object-cover rounded-2xl mb-6 group-hover:scale-105 transition-transform duration-500">
+                    <h3 class="font-semibold text-xl text-gray-900 mb-3">Puff Puff (Pack)</h3>
+                    <div class="text-2xl font-bold text-orange-500 mb-6">₦1,200</div>
+                    <button onclick="addToCart('Puff Puff (Pack)', 1200)" class="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-4 rounded-2xl font-semibold hover:shadow-lg transition-all duration-300">
+                        Add to Bag
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Categories -->
+    <section id="menu" class="py-24">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="font-serif text-4xl font-bold text-center text-gray-900 mb-20">🍕 Complete Menu</h2>
+            
+            <!-- Category Tabs -->
+            <div class="flex overflow-x-auto pb-6 -mx-6 px-6 scrollbar-hide gap-4">
+                <button class="category-tab active min-w-[140px] px-6 py-4 bg-white border-2 border-gray-200 rounded-3xl font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-300 whitespace-nowrap">Bakery</button>
+                <button class="category-tab min-w-[140px] px-6 py-4 bg-white border-2 border-gray-200 rounded-3xl font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-300 whitespace-nowrap">Pantry</button>
+                <button class="category-tab min-w-[140px] px-6 py-4 bg-white border-2 border-gray-200 rounded-3xl font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-300 whitespace-nowrap">Fragrance</button>
+                <button class="category-tab min-w-[140px] px-6 py-4 bg-white border-2 border-gray-200 rounded-3xl font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-300 whitespace-nowrap">Boutique</button>
+            </div>
+
+            <!-- Bakery Products -->
+            <div id="bakery-products" class="menu-category grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="product-card bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+                    <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400" alt="Sausage Roll" class="w-full h-56 object-cover rounded-2xl mb-6">
+                    <h3 class="font-semibold text-xl text-gray-900 mb-3">Sausage Roll</h3>
+                    <div class="text-2xl font-bold text-orange-500 mb-6">₦450</div>
+                    <button onclick="addToCart('Sausage Roll', 450)" class="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-4 rounded-2xl font-semibold hover:shadow-lg transition-all duration-300">
+                        Add to Bag
+                    </button>
+                </div>
+                <div class="product-card bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+                    <img src="https://images.unsplash.com/photo-1568162595815-22bf52e8769c?w=400" alt="Chicken Pie" class="w-full h-56 object-cover rounded-2xl mb-6">
+                    <h3 class="font-semibold text-xl text-gray-900 mb-3">Chicken Pie</h3>
+                    <div class="text-2xl font-bold text-orange-500 mb-6">₦600</div>
+                    <button onclick="addToCart('Chicken Pie', 600)" class="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-4 rounded-2xl font-semibold hover:shadow-lg transition-all duration-300">
+                        Add to Bag
+                    </button>
+                </div>
+            </div>
+
+            <!-- Other categories (hidden by default) -->
+            <div id="pantry-products" class="menu-category hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+            <div id="fragrance-products" class="menu-category hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+            <div id="boutique-products" class="menu-category hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+        </div>
+    </section>
+
+    <!-- Floating Cart Button -->
+    <button id="floatingCart" class="fixed right-6 bottom-32 w-16 h-16 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 flex items-center justify-center text-2xl z-40">
+        🛍️ <span id="cartBadge" class="absolute -top-2 -right-2 bg-red-500 text-xs w-6 h-6 rounded-full flex items-center justify-center">0</span>
+    </button>
+
+    <!-- Sticky Checkout Bar -->
+    <div id="checkoutBar" class="fixed bottom-0 left-0 right-0 bg-white border-t-2 border-gray-100 px-6 py-6 shadow-2xl z-50 hidden">
+        <div class="max-w-4xl mx-auto flex items-center justify-between">
+            <div>
+                <div class="text-2xl font-bold text-gray-900" id="checkoutTotal">₦0</div>
+                <div class="text-sm text-gray-500" id="checkoutItems">No items</div>
+            </div>
+            <button id="viewBagBtn" class="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-12 py-4 rounded-3xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300">
+                View Bag
+            </button>
+        </div>
+    </div>
+
+    <!-- Cart Drawer -->
+    <div id="cartDrawer" class="fixed inset-0 bg-black/50 z-50 hidden">
+        <div class="absolute bottom-0 left-0 right-0 bg-white rounded-3xl mx-6 h-[90vh] p-8 overflow-y-auto shadow-2xl transform translate-y-full transition-transform duration-500">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="font-serif text-3xl font-bold text-gray-900">Your Bag</h2>
+                <button onclick="closeCart()" class="text-2xl text-gray-500 hover:text-gray-900">✕</button>
+            </div>
+            
+            <div id="cartItemsList" class="space-y-6 mb-12"></div>
+            
+            <div class="border-t pt-8">
+                <div class="flex justify-between items-center mb-8">
+                    <span class="text-2xl font-bold text-gray-900">Total:</span>
+                    <span class="text-3xl font-bold text-orange-500" id="drawerTotal">₦0</span>
+                </div>
+                <div class="mb-6">
+                    <input id="locationInput" type="text" placeholder="Enter your location (street, area)" class="w-full p-4 border-2 border-gray-200 rounded-3xl text-lg focus:border-orange-500 focus:outline-none transition-all duration-300">
+                </div>
+                <button id="completeOrderBtn" class="w-full bg-gradient-to-r from-emerald-500 to-green-600 text-white py-6 rounded-3xl font-bold text-xl shadow-2xl hover:shadow-3xl transition-all duration-300">
+                    Complete Order → WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16 mt-24">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <div class="text-4xl mb-6">📍 Lagos, Nigeria</div>
+            <p class="text-xl mb-8">Fast delivery across the city</p>
+            <div class="flex justify-center space-x-8 mb-8 text-2xl">
+                <a href="#" class="hover:text-orange-400 transition-colors">📘</a>
+                <a href="#" class="hover:text-orange-400 transition-colors">📷</a>
+                <a href="#" class="hover:text-orange-400 transition-colors">📱</a>
+            </div>
+            <div class="text-lg font-semibold text-orange-400">Powered by Ifeoluwa Digital</div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
