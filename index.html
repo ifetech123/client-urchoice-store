@@ -3,133 +3,414 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Urchoice Store - Fresh Snacks Delivered</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <style>
-    body {
-  font-family: sans-serif;
-  margin: 0;
-  background: #fff;
+    
+.font-inter { font-family: 'Inter', sans-serif; }
+.font-serif { font-family: 'Playfair Display', serif; }
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
 }
 
-nav {
-  display: flex;
-  justify-content: space-between;
-  padding: 15px;
+.category-tab.active {
+    background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
+    color: white;
+    border-color: #fb923c;
+    box-shadow: 0 10px 25px rgba(251, 146, 60, 0.4);
 }
 
-.cta {
-  background: #25D366;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 8px;
+.product-card {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.hero {
-  text-align: center;
-  padding: 40px 20px;
+#floatingCart {
+    box-shadow: 0 20px 40px rgba(251, 146, 60, 0.4);
 }
 
-button {
-  cursor: pointer;
+#floatingCart:hover {
+    transform: scale(1.1) rotate(5deg);
 }
 
-.products-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  padding: 10px;
+#cartDrawer .absolute {
+    border-radius: 2rem 2rem 0 0;
 }
 
-.cart-floating {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: black;
-  color: white;
-  padding: 10px;
-  border-radius: 50px;
+@media (max-width: 768px) {
+    .hero h1 { 
+        font-size: 3rem !important; 
+        line-height: 1.1 !important;
+    }
+    
+    .grid-cols-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-cols-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    
+    #checkoutBar { 
+        padding-bottom: env(safe-area-inset-bottom); 
+    }
 }
 
-.checkout {
-  position: sticky;
-  bottom: 0;
-  background: white;
-  padding: 10px;
+@media (max-width: 640px) {
+    .hero h1 { font-size: 2.5rem !important; }
+    .section-title { font-size: 2rem !important; }
 }
+
 </style>
-<body>
+<body class="bg-white font-inter">
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-md border-b border-gray-100 z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="text-2xl font-serif font-bold text-gray-900">🍪 Urchoice Store</div>
+            <button id="orderNowBtn" class="bg-gradient-to-r from-emerald-500 to-green-600 text-white px-8 py-3 rounded-full font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-300">
+                Order Now
+            </button>
+        </div>
+    </nav>
 
-<header>
-  <nav>
-    <div class="logo">Urchoice Store</div>
-    <button class="cta">Order Now</button>
-  </nav>
+    <!-- Hero -->
+    <section class="pt-24 pb-24">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <h1 class="font-serif text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-6 leading-tight">
+                Freshly Baked Treats<br>Delivered to Your Door
+            </h1>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto mb-10 font-medium">Delicious homemade snacks for your events and daily cravings</p>
+            <button onclick="scrollToMenu()" class="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-12 py-6 rounded-full font-semibold text-lg shadow-2xl hover:shadow-3xl transform hover:-translate-y-1 transition-all duration-300">
+                View Menu →
+            </button>
+        </div>
+    </section>
 
-  <section class="hero">
-    <h1>Freshly Baked Treats Delivered to Your Door</h1>
-    <p>Delicious homemade snacks for your cravings and events</p>
-    <button id="viewMenuBtn">View Menu</button>
-  </section>
-</header>
+    <!-- Best Sellers -->
+    <section class="py-24 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="font-serif text-4xl font-bold text-center text-gray-900 mb-20">🥐 Best Sellers</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <div class="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-4">
+                    <img src="" alt="Meatpie" class="w-full h-64 object-cover rounded-2xl mb-6 group-hover:scale-105 transition-transform duration-500">
+                    <h3 class="font-semibold text-xl text-gray-900 mb-3">Meatpie</h3>
+                    <div class="text-2xl font-bold text-orange-500 mb-6">₦500</div>
+                    <button onclick="addToCart('Meatpie', 500)" class="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-4 rounded-2xl font-semibold hover:shadow-lg transition-all duration-300">
+                        Add to Bag
+                    </button>
+                </div>
+                <div class="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-4">
+                    <img src="" alt="Chocolate Cake" class="w-full h-64 object-cover rounded-2xl mb-6 group-hover:scale-105 transition-transform duration-500">
+                    <h3 class="font-semibold text-xl text-gray-900 mb-3">Chocolate Cake</h3>
+                    <div class="text-2xl font-bold text-orange-500 mb-6">₦8,000</div>
+                    <button onclick="addToCart('Chocolate Cake', 8000)" class="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-4 rounded-2xl font-semibold hover:shadow-lg transition-all duration-300">
+                        Add to Bag
+                    </button>
+                </div>
+                <div class="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-4">
+                    <img src="" alt="Chin-chin" class="w-full h-64 object-cover rounded-2xl mb-6 group-hover:scale-105 transition-transform duration-500">
+                    <h3 class="font-semibold text-xl text-gray-900 mb-3">Chin-chin (1L)</h3>
+                    <div class="text-2xl font-bold text-orange-500 mb-6">₦2,500</div>
+                    <button onclick="addToCart('Chin-chin (1L)', 2500)" class="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-4 rounded-2xl font-semibold hover:shadow-lg transition-all duration-300">
+                        Add to Bag
+                    </button>
+                </div>
+                <div class="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-4">
+                    <img src="" alt="Puff Puff" class="w-full h-64 object-cover rounded-2xl mb-6 group-hover:scale-105 transition-transform duration-500">
+                    <h3 class="font-semibold text-xl text-gray-900 mb-3">Puff Puff (Pack)</h3>
+                    <div class="text-2xl font-bold text-orange-500 mb-6">₦1,200</div>
+                    <button onclick="addToCart('Puff Puff (Pack)', 1200)" class="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-4 rounded-2xl font-semibold hover:shadow-lg transition-all duration-300">
+                        Add to Bag
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<section class="best-sellers">
-  <!-- product cards -->
-</section>
+    <!-- Menu Categories -->
+    <section id="menu" class="py-24">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="font-serif text-4xl font-bold text-center text-gray-900 mb-20">🍕 Complete Menu</h2>
+            
+            <!-- Category Tabs -->
+            <div class="flex overflow-x-auto pb-6 -mx-6 px-6 scrollbar-hide gap-4">
+                <button class="category-tab active min-w-[140px] px-6 py-4 bg-white border-2 border-gray-200 rounded-3xl font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-300 whitespace-nowrap">Bakery</button>
+                <button class="category-tab min-w-[140px] px-6 py-4 bg-white border-2 border-gray-200 rounded-3xl font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-300 whitespace-nowrap">Pantry</button>
+                <button class="category-tab min-w-[140px] px-6 py-4 bg-white border-2 border-gray-200 rounded-3xl font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-300 whitespace-nowrap">Fragrance</button>
+                <button class="category-tab min-w-[140px] px-6 py-4 bg-white border-2 border-gray-200 rounded-3xl font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-300 whitespace-nowrap">Boutique</button>
+            </div>
 
-<section class="menu">
-  <div class="categories">
-    <button>Pastries</button>
-    <button>Cakes</button>
-    <button>Small Chops</button>
-  </div>
+            <!-- Bakery Products -->
+            <div id="bakery-products" class="menu-category grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="product-card bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+                    <img src="" alt="Sausage Roll" class="w-full h-56 object-cover rounded-2xl mb-6">
+                    <h3 class="font-semibold text-xl text-gray-900 mb-3">Sausage Roll</h3>
+                    <div class="text-2xl font-bold text-orange-500 mb-6">₦450</div>
+                    <button onclick="addToCart('Sausage Roll', 450)" class="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-4 rounded-2xl font-semibold hover:shadow-lg transition-all duration-300">
+                        Add to Bag
+                    </button>
+                </div>
+                <div class="product-card bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+                    <img src="" alt="Chicken Pie" class="w-full h-56 object-cover rounded-2xl mb-6">
+                    <h3 class="font-semibold text-xl text-gray-900 mb-3">Chicken Pie</h3>
+                    <div class="text-2xl font-bold text-orange-500 mb-6">₦600</div>
+                    <button onclick="addToCart('Chicken Pie', 600)" class="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-4 rounded-2xl font-semibold hover:shadow-lg transition-all duration-300">
+                        Add to Bag
+                    </button>
+                </div>
+            </div>
 
-  <div class="products-grid">
-    <!-- JS inject products here -->
-  </div>
-</section>
+            <!-- Other categories (hidden by default) -->
+            <div id="pantry-products" class="menu-category hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+            <div id="fragrance-products" class="menu-category hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+            <div id="boutique-products" class="menu-category hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+        </div>
+    </section>
 
-<div class="cart-floating">
-  🛒 <span id="cartCount">0</span>
-</div>
+    <!-- Floating Cart Button -->
+    <button id="floatingCart" class="fixed right-6 bottom-32 w-16 h-16 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 flex items-center justify-center text-2xl z-40">
+        🛍️ <span id="cartBadge" class="absolute -top-2 -right-2 bg-red-500 text-xs w-6 h-6 rounded-full flex items-center justify-center">0</span>
+    </button>
 
-<section class="checkout">
-  <div id="orderSummary"></div>
-  <button id="whatsappBtn">Send to WhatsApp</button>
-</section>
+    <!-- Sticky Checkout Bar -->
+    <div id="checkoutBar" class="fixed bottom-0 left-0 right-0 bg-white border-t-2 border-gray-100 px-6 py-6 shadow-2xl z-50 hidden">
+        <div class="max-w-4xl mx-auto flex items-center justify-between">
+            <div>
+                <div class="text-2xl font-bold text-gray-900" id="checkoutTotal">₦0</div>
+                <div class="text-sm text-gray-500" id="checkoutItems">No items</div>
+            </div>
+            <button id="viewBagBtn" class="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-12 py-4 rounded-3xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300">
+                View Bag
+            </button>
+        </div>
+    </div>
 
-<footer>
-  Lagos, Nigeria | Powered by Ifeoluwa Digital
-</footer>
-<script>let cart = [];
+    <!-- Cart Drawer -->
+    <div id="cartDrawer" class="fixed inset-0 bg-black/50 z-50 hidden">
+        <div class="absolute bottom-0 left-0 right-0 bg-white rounded-3xl mx-6 h-[90vh] p-8 overflow-y-auto shadow-2xl transform translate-y-full transition-transform duration-500">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="font-serif text-3xl font-bold text-gray-900">Your Bag</h2>
+                <button onclick="closeCart()" class="text-2xl text-gray-500 hover:text-gray-900">✕</button>
+            </div>
+            
+            <div id="cartItemsList" class="space-y-6 mb-12"></div>
+            
+            <div class="border-t pt-8">
+                <div class="flex justify-between items-center mb-8">
+                    <span class="text-2xl font-bold text-gray-900">Total:</span>
+                    <span class="text-3xl font-bold text-orange-500" id="drawerTotal">₦0</span>
+                </div>
+                <div class="mb-6">
+                    <input id="locationInput" type="text" placeholder="Enter your location (street, area)" class="w-full p-4 border-2 border-gray-200 rounded-3xl text-lg focus:border-orange-500 focus:outline-none transition-all duration-300">
+                </div>
+                <button id="completeOrderBtn" class="w-full bg-gradient-to-r from-emerald-500 to-green-600 text-white py-6 rounded-3xl font-bold text-xl shadow-2xl hover:shadow-3xl transition-all duration-300">
+                    Complete Order → WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16 mt-24">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <div class="text-4xl mb-6">📍 Lagos, Nigeria</div>
+            <p class="text-xl mb-8">Fast delivery across the city</p>
+            <div class="flex justify-center space-x-8 mb-8 text-2xl">
+                <a href="#" class="hover:text-orange-400 transition-colors">📘</a>
+                <a href="#" class="hover:text-orange-400 transition-colors">📷</a>
+                <a href="#" class="hover:text-orange-400 transition-colors">📱</a>
+            </div>
+            <div class="text-lg font-semibold text-orange-400">Powered by UrChoice Store</div>
+        </div>
+    </footer>
+
+    <script>
+// Cart state
+let cart = JSON.parse(localStorage.getItem('urchoice-cart')) || [];
+
+// DOM elements
+const cartBadge = document.getElementById('cartBadge');
+const floatingCart = document.getElementById('floatingCart');
+const checkoutBar = document.getElementById('checkoutBar');
+const viewBagBtn = document.getElementById('viewBagBtn');
+const cartDrawer = document.getElementById('cartDrawer');
+const cartItemsList = document.getElementById('cartItemsList');
+const drawerTotal = document.getElementById('drawerTotal');
+const checkoutTotal = document.getElementById('checkoutTotal');
+const checkoutItems = document.getElementById('checkoutItems');
+const locationInput = document.getElementById('locationInput');
+const completeOrderBtn = document.getElementById('completeOrderBtn');
+const orderNowBtn = document.getElementById('orderNowBtn');
+const categoryTabs = document.querySelectorAll('.category-tab');
+
+// Initialize
+document.addEventListener('DOMContentLoaded', function() {
+    renderCart();
+    updateUI();
+    
+    // Event listeners
+    floatingCart.addEventListener('click', toggleCart);
+    viewBagBtn.addEventListener('click', toggleCart);
+    completeOrderBtn.addEventListener('click', sendToWhatsApp);
+    orderNowBtn.addEventListener('click', () => document.getElementById('menu').scrollIntoView({ behavior: 'smooth' }));
+    
+    // Category tabs
+    categoryTabs.forEach(tab => {
+        tab.addEventListener('click', (e) => switchCategory(e.target.dataset.category || e.target.textContent));
+    });
+});
 
 function addToCart(name, price) {
-  cart.push({ name, price });
-  updateCartCount();
+    const existingItem = cart.find(item => item.name === name);
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({ id: Date.now(), name, price, quantity: 1 });
+    }
+    saveCart();
+    renderCart();
+    updateUI();
+    
+    // Visual feedback
+    const btn = event.target;
+    const originalText = btn.textContent;
+    btn.textContent = 'Added! ✓';
+    btn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+    setTimeout(() => {
+        btn.textContent = originalText;
+        btn.style.background = '';
+    }, 1000);
 }
 
-function updateCartCount() {
-  document.getElementById("cartCount").innerText = cart.length;
+function increaseQty(id) {
+    const item = cart.find(item => item.id === parseInt(id));
+    if (item) {
+        item.quantity += 1;
+        saveCart();
+        renderCart();
+        updateUI();
+    }
 }
 
-function generateWhatsAppMessage() {
-  let message = "Hello Urchoice Store, I want to order:\n\n";
-  let total = 0;
-
-  cart.forEach(item => {
-    message += `- ${item.name} (₦${item.price})\n`;
-    total += item.price;
-  });
-
-  message += `\nTotal: ₦${total}`;
-
-  let encoded = encodeURIComponent(message);
-  let url = `https://wa.me/2347064402934?text=${encoded}`;
-
-  window.open(url, "_blank");
+function decreaseQty(id) {
+    const item = cart.find(item => item.id === parseInt(id));
+    if (item) {
+        if (item.quantity > 1) {
+            item.quantity -= 1;
+        } else {
+            cart = cart.filter(item => item.id !== parseInt(id));
+        }
+        saveCart();
+        renderCart();
+        updateUI();
+    }
 }
 
-document.getElementById("whatsappBtn").onclick = generateWhatsAppMessage;</script>
+function removeItem(id) {
+    cart = cart.filter(item => item.id !== parseInt(id));
+    saveCart();
+    renderCart();
+    updateUI();
+}
+
+function calculateTotal() {
+    return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+}
+
+function renderCart() {
+    cartItemsList.innerHTML = cart.length ? 
+        cart.map(item => `
+            <div class="flex items-center justify-between p-6 bg-gray-50 rounded-3xl">
+                <div class="flex items-center space-x-4 flex-1">
+                    <div class="w-20 h-20 bg-gradient-to-br from-orange-400 to-orange-500 rounded-2xl flex items-center justify-center text-2xl">
+                        🍪
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-lg text-gray-900">${item.name}</h4>
+                        <div class="text-2xl font-bold text-orange-500">₦${(item.price * item.quantity).toLocaleString()}</div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-3 ml-6">
+                    <button onclick="decreaseQty(${item.id})" class="w-12 h-12 bg-white border-2 border-gray-200 rounded-2xl flex items-center justify-center text-xl hover:bg-gray-100 transition-all duration-200">-</button>
+                    <span class="text-2xl font-bold text-gray-900 min-w-[2rem] text-center">${item.quantity}</span>
+                    <button onclick="increaseQty(${item.id})" class="w-12 h-12 bg-white border-2 border-gray-200 rounded-2xl flex items-center justify-center text-xl hover:bg-gray-100 transition-all duration-200">+</button>
+                    <button onclick="removeItem(${item.id})" class="w-12 h-12 bg-red-100 text-red-500 rounded-2xl flex items-center justify-center hover:bg-red-200 transition-all duration-200">✕</button>
+                </div>
+            </div>
+        `).join('') : 
+        '<div class="text-center py-20"><div class="text-6xl mb-4">🛍️</div><p class="text-xl text-gray-500 font-semibold">Your bag is empty</p></div>';
+    
+    drawerTotal.textContent = `₦${calculateTotal().toLocaleString()}`;
+}
+
+function updateUI() {
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const totalPrice = calculateTotal();
+    
+    cartBadge.textContent = totalItems;
+    cartBadge.style.display = totalItems > 0 ? 'flex' : 'none';
+    
+    checkoutTotal.textContent = `₦${totalPrice.toLocaleString()}`;
+    checkoutItems.textContent = totalItems ? `${totalItems} items` : 'No items';
+    
+    checkoutBar.classList.toggle('hidden', totalItems === 0);
+    floatingCart.style.display = totalItems > 0 ? 'flex' : 'flex';
+}
+
+function toggleCart() {
+    cartDrawer.classList.toggle('hidden');
+    if (!cartDrawer.classList.contains('hidden')) {
+        cartDrawer.querySelector('.absolute').classList.remove('translate-y-full');
+        renderCart();
+        locationInput.value = localStorage.getItem('urchoice-location') || '';
+    }
+}
+
+function closeCart() {
+    cartDrawer.querySelector('.absolute').classList.add('translate-y-full');
+    setTimeout(() => cartDrawer.classList.add('hidden'), 500);
+}
+
+function switchCategory(category) {
+    document.querySelectorAll('.category-tab').forEach(tab => tab.classList.remove('active'));
+    event.target.classList.add('active');
+    
+    document.querySelectorAll('.menu-category').forEach(cat => cat.classList.add('hidden'));
+    document.getElementById(`${category.toLowerCase()}-products`).classList.remove('hidden');
+}
+
+function sendToWhatsApp() {
+    const total = calculateTotal();
+    if (total === 0) return;
+    
+    const location = locationInput.value || 'Not specified';
+    localStorage.setItem('urchoice-location', location);
+    
+    let message = `Urchoice Store Order:\n\nItems:\n`;
+    cart.forEach(item => {
+        message += `${item.name} x${item.quantity} (₦${item.price.toLocaleString()} each)\n`;
+    });
+    message += `\nTotal: ₦${total.toLocaleString()}\n\nCustomer Location: ${location}`;
+    
+    const phoneNumber = '2347064402934';
+    const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    
+    window.open(whatsappURL, '_blank');
+    closeCart();
+}
+
+function saveCart() {
+    localStorage.setItem('urchoice-cart', JSON.stringify(cart));
+}
+
+// Close drawer on outside click
+document.addEventListener('click', (e) => {
+    if (e.target === cartDrawer) closeCart();
+});
+</script>
 </body>
 </html>
